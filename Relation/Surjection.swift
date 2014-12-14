@@ -21,8 +21,6 @@ public struct Surjection<T: Equatable, U: Equatable> {
 		codomain = DomainOf<U, T> { element in
 			find(values.value) { _, second in second == element }.map { values.value[$0].0 }
 		}
-
-		self.values = values
 	}
 
 
@@ -43,9 +41,6 @@ public struct Surjection<T: Equatable, U: Equatable> {
 
 	/// The surjective function which produces `codomain` for `domain`.
 	private let function: T -> U
-
-	/// The values shared by `domain` and `codomain`.
-	private var values: MutableBox<[(T, U)]>
 }
 
 
