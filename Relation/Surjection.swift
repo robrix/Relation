@@ -1,6 +1,6 @@
 //  Copyright (c) 2014 Rob Rix. All rights reserved.
 
-/// Relation of T and U.
+/// A memoized relation representing a surjective function.
 public struct Surjection<T: Equatable, U: Equatable> {
 	/// Constructs a surjection from a `function`.
 	public init(_ function: T -> U) {
