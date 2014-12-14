@@ -4,4 +4,7 @@
    <FileRef
       location = "group:Relation.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:External/Box/Box.xcodeproj">
+   </FileRef>
 </Workspace>
