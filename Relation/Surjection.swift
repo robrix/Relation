@@ -6,7 +6,7 @@ public struct Surjection<T: Equatable, U: Equatable> {
 	public init(_ function: T -> U) {
 		let values = MutableBox<[(T, U)]>([])
 
-		domain = DomainOf<T, U> { element in
+		domain = DomainOf<T, U>({ values.value.count }, { values.value[$0] }) { element in
 			if let index = find(values.value, { first, _ in first == element }) {
 				return values.value[index].1
 			} else {
@@ -16,7 +16,7 @@ public struct Surjection<T: Equatable, U: Equatable> {
 			}
 		}
 
-		codomain = DomainOf<U, T> { element in
+		codomain = DomainOf<U, T>({ values.value.count }, { flip(values.value[$0]) }) { element in
 			find(values.value) { _, second in second == element }.map { values.value[$0].0 }
 		}
 	}
@@ -37,22 +37,43 @@ public struct Surjection<T: Equatable, U: Equatable> {
 
 
 /// The memoized domain of a unary function.
-public struct DomainOf<T, U> {
+public struct DomainOf<T, U>: CollectionType {
 	/// Returns the value related to `key` through the receiver’s function, if any.
 	public subscript (key: T) -> U? {
 		return function(key)
 	}
 
 
+	// MARK: SequenceType
+
+	public func generate() -> IndexingGenerator<DomainOf> {
+		return IndexingGenerator(self)
+	}
+
+
+	// MARK: CollectionType
+
+	public subscript (index: Int) -> (T, U) {
+		return at(index)
+	}
+
+	public var startIndex: Int { return 0 }
+	public var endIndex: Int { return count() }
+
+
 	// MARK: Private
 
 	/// Constructs a `DomainOf` from a function.
-	private init(_ function: T -> U?) {
+	private init(_ count: () -> Int, _ at: Int -> (T, U), _ function: T -> U?) {
 		self.function = function
+		self.count = count
+		self.at = at
 	}
 
 	/// The function which provides the elements of the receiver.
 	private let function: T -> U?
+	private let count: () -> Int
+	private let at: Int -> (T, U)
 }
 
 
@@ -62,6 +83,11 @@ private func find<C: CollectionType, B: BooleanType>(domain: C, predicate: C.Gen
 		if predicate(domain[each]) { return each }
 	}
 	return nil
+}
+
+/// Returns a pair with its order flipped.
+private func flip<T, U>(x: (T, U)) -> (U, T) {
+	return (x.1, x.0)
 }
 
 
