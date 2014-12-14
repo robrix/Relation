@@ -397,6 +397,7 @@
 				D4BFAE0A1A3DEA9F00777FD9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D4BFAE0B1A3DEA9F00777FD9 /* Build configuration list for PBXNativeTarget "RelationTests" */ = {
 			isa = XCConfigurationList;
@@ -405,6 +406,7 @@
 				D4BFAE0D1A3DEA9F00777FD9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
