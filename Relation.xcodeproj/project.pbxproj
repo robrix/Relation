@@ -60,9 +60,9 @@
 		D4BFADE81A3DEA9F00777FD9 = {
 			isa = PBXGroup;
 			children = (
-				D41C30761A3E14E6005D5D4F /* Box.framework */,
 				D4BFADF41A3DEA9F00777FD9 /* Relation */,
 				D4BFAE011A3DEA9F00777FD9 /* RelationTests */,
+				D41C30761A3E14E6005D5D4F /* Box.framework */,
 				D4BFADF31A3DEA9F00777FD9 /* Products */,
 			);
 			sourceTree = "<group>";
