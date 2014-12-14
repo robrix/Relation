@@ -4,8 +4,6 @@
 public struct Surjection<T: Equatable, U: Equatable> {
 	/// Constructs a surjection from a `function`.
 	public init(_ function: T -> U) {
-		self.function = function
-
 		let values = MutableBox<[(T, U)]>([])
 
 		domain = DomainOf<T, U> { element in
@@ -35,12 +33,6 @@ public struct Surjection<T: Equatable, U: Equatable> {
 	///
 	/// The codomain of a surjection may be partial.
 	public let codomain: DomainOf<U, T>
-
-
-	// MARK: Private
-
-	/// The surjective function which produces `codomain` for `domain`.
-	private let function: T -> U
 }
 
 
