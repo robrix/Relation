@@ -6,7 +6,7 @@ public struct Surjection<T: Equatable, U: Equatable> {
 	public init(_ function: T -> U) {
 		let values = MutableBox<[(T, U)]>([])
 
-		domain = DomainOf<T, U>({ values.value.count }, { values.value[$0] }) { element in
+		domain = DomainOf({ values.value.count }, { values.value[$0] }) { element in
 			if let index = find(values.value, { first, _ in first == element }) {
 				return values.value[index].1
 			} else {
@@ -16,7 +16,7 @@ public struct Surjection<T: Equatable, U: Equatable> {
 			}
 		}
 
-		codomain = DomainOf<U, T>({ values.value.count }, { flip(values.value[$0]) }) { element in
+		codomain = DomainOf({ values.value.count }, { flip(values.value[$0]) }) { element in
 			find(values.value) { _, second in second == element }.map { values.value[$0].0 }
 		}
 	}
